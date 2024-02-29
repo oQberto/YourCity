@@ -1,6 +1,7 @@
 package com.yourcity.yourcity.model.entity;
 
 import com.yourcity.yourcity.model.entity.enums.NetworkStatus;
+import com.yourcity.yourcity.model.entity.enums.Role;
 import com.yourcity.yourcity.model.entity.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
@@ -32,6 +33,9 @@ public class User {
     @Column(name = "network_status")
     @Enumerated(EnumType.STRING)
     NetworkStatus networkStatus;
+
+    @Enumerated(EnumType.STRING)
+    Role role;
 
     @Column(name = "is_verified")
     Boolean isVerified;
