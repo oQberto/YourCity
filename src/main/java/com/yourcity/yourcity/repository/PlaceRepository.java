@@ -1,4 +1,4 @@
-package com.yourcity.yourcity.model.repository;
+package com.yourcity.yourcity.repository;
 
 import com.yourcity.yourcity.model.entity.Place;
 import org.springframework.data.jpa.repository.JpaRepository;
