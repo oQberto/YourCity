@@ -2,7 +2,7 @@ package com.yourcity.yourcity.service.impl;
 
 import com.yourcity.yourcity.dto.mapper.UserMapper;
 import com.yourcity.yourcity.dto.user.UserCreationDto;
-import com.yourcity.yourcity.dto.user.UserDto;
+import com.yourcity.yourcity.dto.user.UserRepresentationDto;
 import com.yourcity.yourcity.dto.user.UserEditDto;
 import com.yourcity.yourcity.model.entity.User;
 import com.yourcity.yourcity.model.entity.enums.NetworkStatus;
@@ -37,19 +37,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserDto createUser(UserCreationDto dto) {
+    public UserRepresentationDto createUser(UserCreationDto dto) {
         return Optional.of(dto)
                 .map(userMapper::mapToUser)
                 .map(userRepository::saveAndFlush)
-                .map(userMapper::mapToUserDto)
+                .map(userMapper::mapToUserRepresentationDto)
                 .orElseThrow(() -> new UserCreationException(USER_CREATION));
     }
 
     @Override
-    public UserDto getUserById(Long id) {
+    public UserRepresentationDto getUserById(Long id) {
         return userRepository
                 .findById(id)
-                .map(userMapper::mapToUserDto)
+                .map(userMapper::mapToUserRepresentationDto)
                 .orElseThrow(() ->
                         new EntityNotFoundException(
                                 String.format(USER_NOT_FOUND, id)
@@ -59,12 +59,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserDto updateUser(UserEditDto dto) {
+    public UserRepresentationDto updateUser(UserEditDto dto) {
         return userRepository
                 .findById(dto.getId())
                 .map(user -> setNewValues(dto, user))
                 .map(userRepository::saveAndFlush)
-                .map(userMapper::mapToUserDto)
+                .map(userMapper::mapToUserRepresentationDto)
                 .orElseThrow(() -> new UserUpdateException(USER_UPDATE));
     }
 

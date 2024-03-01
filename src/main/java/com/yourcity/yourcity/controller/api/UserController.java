@@ -1,7 +1,7 @@
-package com.yourcity.yourcity.controller;
+package com.yourcity.yourcity.controller.api;
 
 import com.yourcity.yourcity.dto.user.UserCreationDto;
-import com.yourcity.yourcity.dto.user.UserDto;
+import com.yourcity.yourcity.dto.user.UserRepresentationDto;
 import com.yourcity.yourcity.dto.user.UserEditDto;
 import com.yourcity.yourcity.service.UserService;
 import lombok.AccessLevel;
@@ -23,21 +23,21 @@ public class UserController {
     public static final String DELETE_USER = "/api/v1/users/{userId}";
 
     @GetMapping(GET_USER_BY_ID)
-    public ResponseEntity<UserDto> getUserById(@PathVariable("userId") Long userId) {
+    public ResponseEntity<UserRepresentationDto> getUserById(@PathVariable("userId") Long userId) {
         return ResponseEntity.ok(
                 userService.getUserById(userId)
         );
     }
 
     @PostMapping(CREATE_USER)
-    public ResponseEntity<UserDto> createUser(UserCreationDto dto) {
+    public ResponseEntity<UserRepresentationDto> createUser(UserCreationDto dto) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(userService.createUser(dto));
     }
 
     @PatchMapping(UPDATE_USER)
-    public ResponseEntity<UserDto> updateUser(UserEditDto dto) {
+    public ResponseEntity<UserRepresentationDto> updateUser(UserEditDto dto) {
         return ResponseEntity.ok(
                 userService.updateUser(dto)
         );

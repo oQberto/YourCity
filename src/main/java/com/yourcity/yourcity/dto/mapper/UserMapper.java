@@ -1,14 +1,13 @@
 package com.yourcity.yourcity.dto.mapper;
 
 import com.yourcity.yourcity.dto.user.UserCreationDto;
-import com.yourcity.yourcity.dto.user.UserDto;
+import com.yourcity.yourcity.dto.user.UserRepresentationDto;
 import com.yourcity.yourcity.dto.user.UserEditDto;
 import com.yourcity.yourcity.model.entity.User;
 import com.yourcity.yourcity.model.entity.enums.NetworkStatus;
 import com.yourcity.yourcity.model.entity.enums.Role;
 import com.yourcity.yourcity.model.entity.enums.Status;
 import org.mapstruct.*;
-import org.springframework.stereotype.Component;
 
 import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
 
@@ -22,7 +21,7 @@ import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
 )
 public interface UserMapper {
 
-    UserDto mapToUserDto(User user);
+    UserRepresentationDto mapToUserRepresentationDto(User user);
 
     @Mappings({
             @Mapping(target = "id", ignore = true),

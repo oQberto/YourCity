@@ -8,7 +8,7 @@ import lombok.Value;
 
 @Value
 @Builder
-public class UserDto {
+public class UserRepresentationDto {
     Long id;
     String username;
     String email;
