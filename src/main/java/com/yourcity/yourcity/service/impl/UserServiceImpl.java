@@ -62,14 +62,10 @@ public class UserServiceImpl implements UserService {
     public UserRepresentationDto updateUser(UserEditDto dto) {
         return userRepository
                 .findById(dto.getId())
-                .map(user -> setNewValues(dto, user))
+                .map(user -> userMapper.updateUser(dto, user))
                 .map(userRepository::saveAndFlush)
                 .map(userMapper::mapToUserRepresentationDto)
                 .orElseThrow(() -> new UserUpdateException(USER_UPDATE));
-    }
-
-    private User setNewValues(UserEditDto dto, User user) {
-        return userMapper.updateUser(dto, user);
     }
 
     @Override
