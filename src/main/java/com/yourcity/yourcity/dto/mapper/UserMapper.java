@@ -4,31 +4,36 @@ import com.yourcity.yourcity.dto.user.UserCreationDto;
 import com.yourcity.yourcity.dto.user.UserDto;
 import com.yourcity.yourcity.dto.user.UserEditDto;
 import com.yourcity.yourcity.model.entity.User;
+import com.yourcity.yourcity.model.entity.enums.NetworkStatus;
+import com.yourcity.yourcity.model.entity.enums.Role;
+import com.yourcity.yourcity.model.entity.enums.Status;
 import org.mapstruct.*;
 import org.springframework.stereotype.Component;
 
 import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
 
-@Component
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(
+        componentModel = MappingConstants.ComponentModel.SPRING,
+        imports = {
+                Status.class,
+                Role.class,
+                NetworkStatus.class
+        }
+)
 public interface UserMapper {
 
     UserDto mapToUserDto(User user);
 
     @Mappings({
-            @Mapping(target = "events", conditionExpression = "java(new ArrayList())"),
-            @Mapping(target = "chats", conditionExpression = "java(new ArrayList())")
+            @Mapping(target = "id", ignore = true),
+            @Mapping(target = "status", expression = "java(Status.ACTIVE)"),
+            @Mapping(target = "networkStatus", expression = "java(NetworkStatus.ONLINE)"),
+            @Mapping(target = "role", expression = "java(Role.USER)"),
+            @Mapping(target = "isVerified", expression = "java(false)")
     })
     User mapToUser(UserCreationDto dto);
 
     @Mappings({
-            @Mapping(target = "id", ignore = true),
-            @Mapping(target = "status", ignore = true),
-            @Mapping(target = "networkStatus", ignore = true),
-            @Mapping(target = "role", ignore = true),
-            @Mapping(target = "ownedEvent", ignore = true),
-            @Mapping(target = "events", ignore = true),
-            @Mapping(target = "chats", ignore = true),
             @Mapping(target = "username",conditionExpression = "java(!dto.getUsername().isEmpty())"),
             @Mapping(target = "password",conditionExpression = "java(!dto.getPassword().isEmpty())"),
             @Mapping(target = "email",conditionExpression = "java(!dto.getEmail().isEmpty())"),

@@ -5,6 +5,7 @@ import com.yourcity.yourcity.dto.user.UserCreationDto;
 import com.yourcity.yourcity.dto.user.UserDto;
 import com.yourcity.yourcity.dto.user.UserEditDto;
 import com.yourcity.yourcity.model.entity.User;
+import com.yourcity.yourcity.model.entity.enums.NetworkStatus;
 import com.yourcity.yourcity.model.entity.enums.Status;
 import com.yourcity.yourcity.repository.UserRepository;
 import com.yourcity.yourcity.service.UserService;
@@ -97,6 +98,7 @@ public class UserServiceImpl implements UserService {
 
     private User setDeletedStatus(User user) {
         user.setStatus(Status.DELETED);
+        user.setNetworkStatus(NetworkStatus.OFFLINE);
         return user;
     }
 }

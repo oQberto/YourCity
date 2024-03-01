@@ -9,12 +9,7 @@ import lombok.Value;
 @Value
 @Builder
 public class UserCreationDto {
-    Long id;
     String username;
     String email;
     String password;
-    Status status;
-    Role role;
-    NetworkStatus networkStatus;
-    Boolean isVerified;
 }
