@@ -3,6 +3,7 @@ package com.yourcity.yourcity.controller.api;
 import com.yourcity.yourcity.dto.user.UserCreationDto;
 import com.yourcity.yourcity.dto.user.UserRepresentationDto;
 import com.yourcity.yourcity.dto.user.UserEditDto;
+import com.yourcity.yourcity.model.entity.enums.NetworkStatus;
 import com.yourcity.yourcity.service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
@@ -18,7 +21,8 @@ public class UserController {
     UserService userService;
 
     public static final String GET_USER_BY_ID = "/api/v1/users/{userId}";
-    public static final String CREATE_USER = "/api/v1/users/user/creation";
+    public static final String GET_USERS_BY_NETWORK_STATUS = "/api/v1/users/status/{networkStatus}";
+    public static final String CREATE_USER = "/api/v1/users";
     public static final String UPDATE_USER = "/api/v1/users/user/update";
     public static final String DELETE_USER = "/api/v1/users/{userId}";
 
@@ -26,6 +30,14 @@ public class UserController {
     public ResponseEntity<UserRepresentationDto> getUserById(@PathVariable("userId") Long userId) {
         return ResponseEntity.ok(
                 userService.getUserById(userId)
+        );
+    }
+
+    @GetMapping(GET_USERS_BY_NETWORK_STATUS)
+    public ResponseEntity<List<UserRepresentationDto>> getUsersByNetworkStatus
+            (@PathVariable NetworkStatus networkStatus) {
+        return ResponseEntity.ok(
+                userService.getUsersByNetworkStatus(networkStatus)
         );
     }
 

@@ -19,6 +19,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -82,6 +83,15 @@ public class UserServiceImpl implements UserService {
                                 String.format(USER_DELETION, id)
                         )
                 );
+    }
+
+    @Override
+    public List<UserRepresentationDto> getUsersByNetworkStatus(NetworkStatus networkStatus) {
+        return userRepository
+                .getAllByNetworkStatus(networkStatus)
+                .stream()
+                .map(userMapper::mapToUserRepresentationDto)
+                .toList();
     }
 
     private void isUserExists(Long id) {
