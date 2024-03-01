@@ -40,8 +40,9 @@ public class User {
     @Column(name = "is_verified")
     Boolean isVerified;
 
-    @OneToOne(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    Event ownedEvent;
+    @Builder.Default
+    @OneToMany(mappedBy = "owner")
+    List<Event> ownedEvents = new ArrayList<>();
 
     @Builder.Default
     @ManyToMany(cascade = CascadeType.ALL)

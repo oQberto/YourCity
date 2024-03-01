@@ -26,7 +26,7 @@ public class Event {
     @Column(name = "event_time")
     OffsetDateTime eventTime;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "owner_id")
     User owner;
 
