@@ -27,14 +27,14 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class UserServiceImpl implements UserService {
-    UserRepository userRepository;
-    UserMapper userMapper;
-
     public static final String USER_NOT_FOUND = "User with id \"%d\" not found";
     public static final String USER_NOT_EXISTS = "User with id \"%d\" doesn't exist";
     public static final String USER_CREATION = "Couldn't create a user.";
     public static final String USER_DELETION = "Couldn't delete a user with id \"%d\".";
     public static final String USER_UPDATE = "Couldn't update a user.";
+
+    UserRepository userRepository;
+    UserMapper userMapper;
 
     @Override
     @Transactional

@@ -3,6 +3,7 @@ package com.yourcity.yourcity.service.impl;
 import com.yourcity.yourcity.dto.country.CountryDto;
 import com.yourcity.yourcity.dto.mapper.CountryMapper;
 import com.yourcity.yourcity.repository.CountryRepository;
+import com.yourcity.yourcity.service.CountryService;
 import com.yourcity.yourcity.service.exception.country.CountryCreationException;
 import com.yourcity.yourcity.service.exception.country.CountryUpdateException;
 import jakarta.persistence.EntityNotFoundException;
@@ -20,13 +21,13 @@ import static lombok.AccessLevel.PRIVATE;
 @Transactional(readOnly = true)
 @FieldDefaults(makeFinal = true, level = PRIVATE)
 public class CountryServiceImpl implements CountryService {
-    CountryRepository countryRepository;
-    CountryMapper countryMapper;
-
     public static final String COUNTRY_NOT_FOUND_BY_ID = "Couldn't find a country with id \"%d\".";
     public static final String COUNTRY_NOT_FOUND_BY_NAME = "Couldn't find a country with name \"%s\".";
     public static final String COUNTRY_CREATION = "Couldn't create a country.";
     public static final String COUNTRY_UPDATE = "Couldn't update a country.";
+
+    CountryRepository countryRepository;
+    CountryMapper countryMapper;
 
     @Override
     public CountryDto getCountryById(Long id) {

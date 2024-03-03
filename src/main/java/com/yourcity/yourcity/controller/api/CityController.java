@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class CityController {
-    CityService cityService;
-
     public static final String GET_CITY_BY_ID = "/api/v1/cities/{id}";
     public static final String CREATE_CITY = "/api/v1/cities";
     public static final String UPDATE_CITY = "/api/v1/cities";
     public static final String DELETE_CITY = "/api/v1/cities/{id}";
+
+    CityService cityService;
 
     @GetMapping(GET_CITY_BY_ID)
     public ResponseEntity<CityDto> getCityById(@PathVariable Long id) {

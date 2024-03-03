@@ -1,7 +1,7 @@
 package com.yourcity.yourcity.controller.api;
 
 import com.yourcity.yourcity.dto.country.CountryDto;
-import com.yourcity.yourcity.service.impl.CountryService;
+import com.yourcity.yourcity.service.CountryService;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.yourcity.yourcity.service.impl;
+package com.yourcity.yourcity.service;
 
 import com.yourcity.yourcity.dto.country.CountryDto;
 import org.springframework.stereotype.Service;

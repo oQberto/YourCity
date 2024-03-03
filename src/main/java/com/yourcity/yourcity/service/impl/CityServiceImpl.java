@@ -20,12 +20,12 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class CityServiceImpl implements CityService {
-    CityRepository cityRepository;
-    CityMapper cityMapper;
-
     public static final String CITY_CREATION = "Couldn't create a city.";
     public static final String CITY_NOT_FOUND = "Couldn't find a city with id \"%d\".";
     public static final String CITY_UPDATE = "Couldn't update a city.";
+
+    CityRepository cityRepository;
+    CityMapper cityMapper;
 
     @Override
     @Transactional

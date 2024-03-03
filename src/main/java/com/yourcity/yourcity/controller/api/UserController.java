@@ -18,13 +18,13 @@ import java.util.List;
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class UserController {
-    UserService userService;
-
     public static final String GET_USER_BY_ID = "/api/v1/users/{userId}";
     public static final String GET_USERS_BY_NETWORK_STATUS = "/api/v1/users/status/{networkStatus}";
     public static final String CREATE_USER = "/api/v1/users";
     public static final String UPDATE_USER = "/api/v1/users/user/update";
     public static final String DELETE_USER = "/api/v1/users/{userId}";
+
+    UserService userService;
 
     @GetMapping(GET_USER_BY_ID)
     public ResponseEntity<UserRepresentationDto> getUserById(@PathVariable("userId") Long userId) {
