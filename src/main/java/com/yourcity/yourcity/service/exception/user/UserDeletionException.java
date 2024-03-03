@@ -1,4 +1,4 @@
-package com.yourcity.yourcity.service.exception;
+package com.yourcity.yourcity.service.exception.user;
 
 public class UserDeletionException extends RuntimeException {
 
