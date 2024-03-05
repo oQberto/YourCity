@@ -3,11 +3,13 @@ package com.yourcity.yourcity.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.FieldNameConstants;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldNameConstants
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 public class Address {
