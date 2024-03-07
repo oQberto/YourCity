@@ -3,6 +3,7 @@ package com.yourcity.yourcity.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.FieldNameConstants;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldNameConstants
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 public class Event {
