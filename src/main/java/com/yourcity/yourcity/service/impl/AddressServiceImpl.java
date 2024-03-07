@@ -31,7 +31,6 @@ public class AddressServiceImpl implements AddressService {
     AddressRepository addressRepository;
     AddressMapper addressMapper;
 
-    //TODO: implement methods below
     @Override
     public AddressDto getAddressById(Long id) {
         return addressRepository
