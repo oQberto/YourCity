@@ -5,6 +5,7 @@ import com.yourcity.yourcity.service.AddressService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +19,6 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class AddressController {
     public static final String GET_ADDRESS_BY_ID = "/api/v1/addresses/{id}";
-    public static final String GET_ADDRESSES_BY_ROOM_NUMBER = "/api/v1/addresses/room/{number}";
-    public static final String GET_ADDRESSES_BY_BUILDING_NUMBER = "/api/v1/addresses/building/{number}";
     public static final String GET_ADDRESSES_BY_COUNTRY_NAME = "/api/v1/addresses/country/{name}";
     public static final String GET_ADDRESSES_BY_STREET_NAME = "/api/v1/addresses/street/{name}";
     public static final String GET_ADDRESSES_BY_CITY_NAME = "/api/v1/addresses/city/{name}";
@@ -36,38 +35,24 @@ public class AddressController {
         );
     }
 
-    @GetMapping(GET_ADDRESSES_BY_ROOM_NUMBER)
-    public ResponseEntity<AddressDto> getAddressByRoomNumber(@PathVariable Short number) {
-        return ResponseEntity.ok(
-                addressService.getAddressByRoomNumber(number)
-        );
-    }
-
-    @GetMapping(GET_ADDRESSES_BY_BUILDING_NUMBER)
-    public ResponseEntity<AddressDto> getAddressByBuildingNumber(@PathVariable Short number) {
-        return ResponseEntity.ok(
-                addressService.getAddressByBuildingNumber(number)
-        );
-    }
-
     @GetMapping(GET_ADDRESSES_BY_COUNTRY_NAME)
-    public ResponseEntity<List<AddressDto>> getAddressesByCountryName(@PathVariable String name) {
+    public ResponseEntity<List<AddressDto>> getAddressesByCountryName(@PathVariable String name, Pageable pageable) {
         return ResponseEntity.ok(
-                addressService.getAddressesByCountry(name)
+                addressService.getAddressesByCountry(name, pageable)
         );
     }
 
     @GetMapping(GET_ADDRESSES_BY_CITY_NAME)
-    public ResponseEntity<List<AddressDto>> getAddressesByCityName(@PathVariable String name) {
+    public ResponseEntity<List<AddressDto>> getAddressesByCityName(@PathVariable String name, Pageable pageable) {
         return ResponseEntity.ok(
-                addressService.getAddressesByCity(name)
+                addressService.getAddressesByCity(name, pageable)
         );
     }
 
     @GetMapping(GET_ADDRESSES_BY_STREET_NAME)
-    public ResponseEntity<List<AddressDto>> getAddressesByStreetName(@PathVariable String name) {
+    public ResponseEntity<List<AddressDto>> getAddressesByStreetName(@PathVariable String name, Pageable pageable) {
         return ResponseEntity.ok(
-                addressService.getAddressesByStreet(name)
+                addressService.getAddressesByStreet(name, pageable)
         ) ;
     }
 

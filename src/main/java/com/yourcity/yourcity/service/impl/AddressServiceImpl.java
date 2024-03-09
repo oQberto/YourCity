@@ -9,6 +9,7 @@ import com.yourcity.yourcity.service.exception.address.AddressUpdateException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,8 +24,6 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(makeFinal = true, level = PRIVATE)
 public class AddressServiceImpl implements AddressService {
     public static final String GET_ADDRESS_BY_ID = "Couldn't find an address with id \"%d\".";
-    public static final String GET_ADDRESS_BY_ROOM_NUMBER = "Couldn't find an address with room number \"%d\".";
-    public static final String GET_ADDRESS_BY_BUILDING_NUMBER = "Couldn't find an address with building number \"%d\".";
     public static final String CREATE_ADDRESS = "Couldn't create an address.";
     public static final String UPDATE_ADDRESS = "Couldn't update an address.";
 
@@ -39,28 +38,6 @@ public class AddressServiceImpl implements AddressService {
                 .orElseThrow(() ->
                         new EntityNotFoundException(
                                 String.format(GET_ADDRESS_BY_ID, id)
-                        ));
-    }
-
-    @Override
-    public AddressDto getAddressByRoomNumber(Short roomNumber) {
-        return addressRepository
-                .findByRoomNumber(roomNumber)
-                .map(addressMapper::mapToAddressDto)
-                .orElseThrow(() ->
-                        new EntityNotFoundException(
-                                String.format(GET_ADDRESS_BY_ROOM_NUMBER, roomNumber)
-                        ));
-    }
-
-    @Override
-    public AddressDto getAddressByBuildingNumber(Short buildingNumber) {
-        return addressRepository
-                .findByBuildingNumber(buildingNumber)
-                .map(addressMapper::mapToAddressDto)
-                .orElseThrow(() ->
-                        new EntityNotFoundException(
-                                String.format(GET_ADDRESS_BY_BUILDING_NUMBER, buildingNumber)
                         ));
     }
 
@@ -86,27 +63,27 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public List<AddressDto> getAddressesByCountry(String countryName) {
+    public List<AddressDto> getAddressesByCountry(String countryName, Pageable pageable) {
         return addressRepository
-                .findAllByCountryName(countryName)
+                .findAllByCountryName(countryName, pageable)
                 .stream()
                 .map(addressMapper::mapToAddressDto)
                 .toList();
     }
 
     @Override
-    public List<AddressDto> getAddressesByCity(String cityName) {
+    public List<AddressDto> getAddressesByCity(String cityName, Pageable pageable) {
         return addressRepository
-                .findAllByCityName(cityName)
+                .findAllByCityName(cityName, pageable)
                 .stream()
                 .map(addressMapper::mapToAddressDto)
                 .toList();
     }
 
     @Override
-    public List<AddressDto> getAddressesByStreet(String streetName) {
+    public List<AddressDto> getAddressesByStreet(String streetName, Pageable pageable) {
         return addressRepository
-                .findAllByStreetName(streetName)
+                .findAllByStreetName(streetName, pageable)
                 .stream()
                 .map(addressMapper::mapToAddressDto)
                 .toList();
