@@ -8,9 +8,9 @@ import com.yourcity.yourcity.service.StreetService;
 import com.yourcity.yourcity.service.exception.street.StreetCreationException;
 import com.yourcity.yourcity.service.exception.street.StreetUpdateException;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -76,19 +76,19 @@ public class StreetServiceImpl implements StreetService {
     }
 
     @Override
+    public List<StreetDto> getStreetsByType(Type type, Pageable pageable) {
+        return streetRepository
+                .findAllByType(type, pageable)
+                .stream()
+                .map(streetMapper::mapToStreetDto)
+                .toList();
+    }
+
+    @Override
     @Transactional
     public void deleteStreet(Long id) {
         streetRepository
                 .findById(id)
                 .ifPresent(streetRepository::delete);
-    }
-
-    @Override
-    public List<StreetDto> getStreetsByType(Type type) {
-        return streetRepository
-                .findAllByType(type)
-                .stream()
-                .map(streetMapper::mapToStreetDto)
-                .toList();
     }
 }

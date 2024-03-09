@@ -12,9 +12,9 @@ VALUES (1, 'New York', 'The largest city in the United States'),
 
 -- Test data for "street" table
 INSERT INTO street (id, type, name)
-VALUES (1, 'Main', 'Broadway'),
-       (2, 'Avenue', 'Oxford Street'),
-       (3, 'Boulevard', 'Champs-Élysées');
+VALUES (1, 'HIGHWAY', 'Broadway'),
+       (2, 'LIVING_STREET', 'Oxford Street'),
+       (3, 'BOULEVARD', 'Champs-Élysées');
 
 -- Test data for "address" table
 INSERT INTO address (id, building_number, room_number, country_id, city_id, street_id)

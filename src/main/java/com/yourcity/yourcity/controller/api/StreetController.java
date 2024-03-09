@@ -5,6 +5,7 @@ import com.yourcity.yourcity.model.entity.enums.Type;
 import com.yourcity.yourcity.service.StreetService;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,9 +43,9 @@ public class StreetController {
     }
 
     @GetMapping(GET_STREETS_BY_TYPE)
-    public ResponseEntity<List<StreetDto>> getStreetsByType(@RequestParam Type type) {
+    public ResponseEntity<List<StreetDto>> getStreetsByType(@RequestParam Type type, Pageable pageable) {
         return ResponseEntity.ok(
-                streetService.getStreetsByType(type)
+                streetService.getStreetsByType(type, pageable)
         );
     }
 
