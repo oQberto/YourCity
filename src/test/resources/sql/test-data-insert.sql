@@ -63,10 +63,10 @@ SELECT generate_series,
        'Place' || generate_series,
        CASE
            WHEN generate_series % 3 = 0
-               THEN 'Park'
+               THEN 'CINEMA'
            WHEN generate_series % 3 = 1
-               THEN 'Palace'
-           ELSE 'Landmark' END,
+               THEN 'CAFFE'
+           ELSE 'RESTAURANT' END,
        'Description of Place' || generate_series,
        generate_series
 FROM generate_series(1, 30);
