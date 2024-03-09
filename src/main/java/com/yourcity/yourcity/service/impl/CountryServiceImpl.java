@@ -67,7 +67,6 @@ public class CountryServiceImpl implements CountryService {
         return countryRepository
                 .findById(dto.getId())
                 .map(country -> countryMapper.updateCountry(dto, country))
-                .map(countryMapper::mapToCountry)
                 .map(countryRepository::saveAndFlush)
                 .map(countryMapper::mapToCountryDto)
                 .orElseThrow(() -> new CountryUpdateException(COUNTRY_UPDATE));

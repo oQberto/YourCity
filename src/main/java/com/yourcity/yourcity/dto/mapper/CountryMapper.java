@@ -18,6 +18,6 @@ public interface CountryMapper {
     CountryDto mapToCountryDto(Country entity);
 
     @BeanMapping(nullValuePropertyMappingStrategy = IGNORE)
-    CountryDto updateCountry(CountryDto dto,
-                             @MappingTarget Country entity);
+    Country updateCountry(CountryDto dto,
+                          @MappingTarget Country entity);
 }
