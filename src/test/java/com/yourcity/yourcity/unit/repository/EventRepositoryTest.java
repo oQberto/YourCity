@@ -1,7 +1,8 @@
-package com.yourcity.yourcity.repository;
+package com.yourcity.yourcity.unit.repository;
 
 import com.yourcity.yourcity.TestYourCityApplication;
 import com.yourcity.yourcity.model.entity.Event;
+import com.yourcity.yourcity.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.Test;
