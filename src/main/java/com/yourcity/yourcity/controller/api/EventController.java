@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -45,7 +45,7 @@ public class EventController {
     }
 
     @GetMapping(GET_EVENTS_BY_EVENT_TIME)
-    public ResponseEntity<List<EventDto>> getEventsByEventTime(@RequestParam OffsetDateTime time, Pageable pageable) {
+    public ResponseEntity<List<EventDto>> getEventsByEventTime(@RequestParam LocalDateTime time, Pageable pageable) {
         return ResponseEntity.ok(
                 eventService.getEventsByEventTime(time, pageable)
         );

@@ -1,11 +1,10 @@
 package com.yourcity.yourcity.service;
 
 import com.yourcity.yourcity.dto.event.EventDto;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -15,7 +14,7 @@ public interface EventService {
 
     EventDto getEventByName(String name);
 
-    List<EventDto> getEventsByEventTime(OffsetDateTime time, Pageable pageable);
+    List<EventDto> getEventsByEventTime(LocalDateTime time, Pageable pageable);
 
     List<EventDto> getEventByOwnerName(String name, Pageable pageable);
 

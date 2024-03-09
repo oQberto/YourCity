@@ -9,12 +9,12 @@ import com.yourcity.yourcity.service.exception.EntityUpdateException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,9 +56,9 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<EventDto> getEventsByEventTime(OffsetDateTime time, Pageable pageable) {
+    public List<EventDto> getEventsByEventTime(LocalDateTime time, Pageable pageable) {
         return eventRepository
-                .findAllByEventTime(time, pageable)
+                .findAllByEventTime(time.truncatedTo(ChronoUnit.MINUTES), pageable)
                 .stream()
                 .map(eventMapper::mapToEventDto)
                 .toList();

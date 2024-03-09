@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Value;
 import lombok.experimental.FieldNameConstants;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Value
@@ -16,7 +16,7 @@ public class EventDto {
     Long id;
     String name;
     String description;
-    OffsetDateTime eventTime;
+    LocalDateTime eventTime;
     UserRepresentationDto ownerDto;
     List<UserRepresentationDto> subscribedUsers;
     AddressDto addressDto;
