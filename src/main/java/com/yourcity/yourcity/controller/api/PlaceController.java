@@ -5,6 +5,7 @@ import com.yourcity.yourcity.model.entity.enums.PlaceCategory;
 import com.yourcity.yourcity.service.PlaceService;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,9 +43,9 @@ public class PlaceController {
     }
 
     @GetMapping(GET_PLACES_BY_CATEGORY)
-    public ResponseEntity<List<PlaceDto>> getPlacesByCategory(@RequestParam PlaceCategory category) {
+    public ResponseEntity<List<PlaceDto>> getPlacesByCategory(@RequestParam PlaceCategory category, Pageable pageable) {
         return ResponseEntity.ok(
-                placeService.getPlacesByCategory(category)
+                placeService.getPlacesByCategory(category, pageable)
         );
     }
 

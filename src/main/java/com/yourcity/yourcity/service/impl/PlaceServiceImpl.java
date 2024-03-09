@@ -10,6 +10,7 @@ import com.yourcity.yourcity.service.exception.EntityUpdateException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,9 +55,9 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
-    public List<PlaceDto> getPlacesByCategory(PlaceCategory category) {
+    public List<PlaceDto> getPlacesByCategory(PlaceCategory category, Pageable pageable) {
         return placeRepository
-                .findAllByCategory(category)
+                .findAllByCategory(category, pageable)
                 .stream()
                 .map(placeMapper::mapToPlaceDto)
                 .toList();
