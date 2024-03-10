@@ -4,8 +4,8 @@ import com.yourcity.yourcity.dto.address.AddressDto;
 import com.yourcity.yourcity.dto.mapper.AddressMapper;
 import com.yourcity.yourcity.repository.AddressRepository;
 import com.yourcity.yourcity.service.AddressService;
-import com.yourcity.yourcity.service.exception.address.AddressCreationException;
-import com.yourcity.yourcity.service.exception.address.AddressUpdateException;
+import com.yourcity.yourcity.service.exception.EntityCreationException;
+import com.yourcity.yourcity.service.exception.EntityUpdateException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -48,7 +48,7 @@ public class AddressServiceImpl implements AddressService {
                 .map(addressMapper::mapToAddress)
                 .map(addressRepository::saveAndFlush)
                 .map(addressMapper::mapToAddressDto)
-                .orElseThrow(() -> new AddressCreationException(CREATE_ADDRESS));
+                .orElseThrow(() -> new EntityCreationException(CREATE_ADDRESS));
     }
 
     @Override
@@ -59,7 +59,7 @@ public class AddressServiceImpl implements AddressService {
                 .map(address -> addressMapper.updateAddress(dto, address))
                 .map(addressRepository::saveAndFlush)
                 .map(addressMapper::mapToAddressDto)
-                .orElseThrow(() -> new AddressUpdateException(UPDATE_ADDRESS));
+                .orElseThrow(() -> new EntityUpdateException(UPDATE_ADDRESS));
     }
 
     @Override

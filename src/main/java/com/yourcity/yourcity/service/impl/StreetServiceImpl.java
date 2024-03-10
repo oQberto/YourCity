@@ -5,8 +5,8 @@ import com.yourcity.yourcity.dto.street.StreetDto;
 import com.yourcity.yourcity.model.entity.enums.Type;
 import com.yourcity.yourcity.repository.StreetRepository;
 import com.yourcity.yourcity.service.StreetService;
-import com.yourcity.yourcity.service.exception.street.StreetCreationException;
-import com.yourcity.yourcity.service.exception.street.StreetUpdateException;
+import com.yourcity.yourcity.service.exception.EntityCreationException;
+import com.yourcity.yourcity.service.exception.EntityUpdateException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -61,7 +61,7 @@ public class StreetServiceImpl implements StreetService {
                 .map(streetMapper::mapToStreet)
                 .map(streetRepository::saveAndFlush)
                 .map(streetMapper::mapToStreetDto)
-                .orElseThrow(() -> new StreetCreationException(CREATE_STREET));
+                .orElseThrow(() -> new EntityCreationException(CREATE_STREET));
     }
 
     @Override
@@ -72,7 +72,7 @@ public class StreetServiceImpl implements StreetService {
                 .map(street -> streetMapper.updateStreet(dto, street))
                 .map(streetRepository::saveAndFlush)
                 .map(streetMapper::mapToStreetDto)
-                .orElseThrow(() -> new StreetUpdateException(UPDATE_STREET));
+                .orElseThrow(() -> new EntityUpdateException(UPDATE_STREET));
     }
 
     @Override

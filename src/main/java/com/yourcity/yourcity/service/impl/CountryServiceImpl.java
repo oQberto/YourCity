@@ -4,8 +4,8 @@ import com.yourcity.yourcity.dto.country.CountryDto;
 import com.yourcity.yourcity.dto.mapper.CountryMapper;
 import com.yourcity.yourcity.repository.CountryRepository;
 import com.yourcity.yourcity.service.CountryService;
-import com.yourcity.yourcity.service.exception.country.CountryCreationException;
-import com.yourcity.yourcity.service.exception.country.CountryUpdateException;
+import com.yourcity.yourcity.service.exception.EntityCreationException;
+import com.yourcity.yourcity.service.exception.EntityUpdateException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -58,7 +58,7 @@ public class CountryServiceImpl implements CountryService {
                 .map(countryMapper::mapToCountry)
                 .map(countryRepository::saveAndFlush)
                 .map(countryMapper::mapToCountryDto)
-                .orElseThrow(() -> new CountryCreationException(COUNTRY_CREATION));
+                .orElseThrow(() -> new EntityCreationException(COUNTRY_CREATION));
     }
 
     @Override
@@ -69,7 +69,7 @@ public class CountryServiceImpl implements CountryService {
                 .map(country -> countryMapper.updateCountry(dto, country))
                 .map(countryRepository::saveAndFlush)
                 .map(countryMapper::mapToCountryDto)
-                .orElseThrow(() -> new CountryUpdateException(COUNTRY_UPDATE));
+                .orElseThrow(() -> new EntityUpdateException(COUNTRY_UPDATE));
     }
 
     @Override

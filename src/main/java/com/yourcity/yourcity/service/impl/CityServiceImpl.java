@@ -4,8 +4,8 @@ import com.yourcity.yourcity.dto.city.CityDto;
 import com.yourcity.yourcity.dto.mapper.CityMapper;
 import com.yourcity.yourcity.repository.CityRepository;
 import com.yourcity.yourcity.service.CityService;
-import com.yourcity.yourcity.service.exception.city.CityCreationException;
-import com.yourcity.yourcity.service.exception.city.CityUpdateException;
+import com.yourcity.yourcity.service.exception.EntityCreationException;
+import com.yourcity.yourcity.service.exception.EntityUpdateException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +34,7 @@ public class CityServiceImpl implements CityService {
                 .map(cityMapper::mapToCity)
                 .map(cityRepository::saveAndFlush)
                 .map(cityMapper::mapToCityDto)
-                .orElseThrow(() -> new CityCreationException(CITY_CREATION));
+                .orElseThrow(() -> new EntityCreationException(CITY_CREATION));
     }
 
     @Override
@@ -55,7 +55,7 @@ public class CityServiceImpl implements CityService {
                 .findById(dto.getId())
                 .map(user -> cityMapper.updateCity(dto, user))
                 .map(cityMapper::mapToCityDto)
-                .orElseThrow(() -> new CityUpdateException(CITY_UPDATE));
+                .orElseThrow(() -> new EntityUpdateException(CITY_UPDATE));
     }
 
     @Override

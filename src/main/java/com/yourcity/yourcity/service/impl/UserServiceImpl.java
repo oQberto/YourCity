@@ -9,9 +9,9 @@ import com.yourcity.yourcity.model.entity.enums.NetworkStatus;
 import com.yourcity.yourcity.model.entity.enums.Status;
 import com.yourcity.yourcity.repository.UserRepository;
 import com.yourcity.yourcity.service.UserService;
-import com.yourcity.yourcity.service.exception.user.UserCreationException;
+import com.yourcity.yourcity.service.exception.EntityCreationException;
+import com.yourcity.yourcity.service.exception.EntityUpdateException;
 import com.yourcity.yourcity.service.exception.user.UserDeletionException;
-import com.yourcity.yourcity.service.exception.user.UserUpdateException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
                 .map(userMapper::mapToUser)
                 .map(userRepository::saveAndFlush)
                 .map(userMapper::mapToUserRepresentationDto)
-                .orElseThrow(() -> new UserCreationException(USER_CREATION));
+                .orElseThrow(() -> new EntityCreationException(USER_CREATION));
     }
 
     @Override
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
                 .map(user -> userMapper.updateUser(dto, user))
                 .map(userRepository::saveAndFlush)
                 .map(userMapper::mapToUserRepresentationDto)
-                .orElseThrow(() -> new UserUpdateException(USER_UPDATE));
+                .orElseThrow(() -> new EntityUpdateException(USER_UPDATE));
     }
 
     @Override
