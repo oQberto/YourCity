@@ -43,7 +43,7 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public CountryDto getCountryByName(String name) {
         return countryRepository
-                .getCountryByName(name)
+                .findCountryByName(name)
                 .map(countryMapper::mapToCountryDto)
                 .orElseThrow(() ->
                         new EntityNotFoundException(
