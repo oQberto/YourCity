@@ -1,13 +1,14 @@
 package com.yourcity.yourcity.controller.api;
 
 import com.yourcity.yourcity.dto.user.UserCreationDto;
-import com.yourcity.yourcity.dto.user.UserRepresentationDto;
 import com.yourcity.yourcity.dto.user.UserEditDto;
+import com.yourcity.yourcity.dto.user.UserRepresentationDto;
 import com.yourcity.yourcity.model.entity.enums.NetworkStatus;
 import com.yourcity.yourcity.service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,9 +36,9 @@ public class UserController {
 
     @GetMapping(GET_USERS_BY_NETWORK_STATUS)
     public ResponseEntity<List<UserRepresentationDto>> getUsersByNetworkStatus
-            (@PathVariable NetworkStatus networkStatus) {
+            (@PathVariable NetworkStatus networkStatus, Pageable pageable) {
         return ResponseEntity.ok(
-                userService.getUsersByNetworkStatus(networkStatus)
+                userService.getUsersByNetworkStatus(networkStatus, pageable)
         );
     }
 

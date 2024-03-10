@@ -35,16 +35,16 @@ SELECT generate_series,
        'user' || generate_series,
        'user' || generate_series || '@example.com',
        'password' || generate_series,
-       'active',
+       'ACTIVE',
        CASE
            WHEN generate_series % 2 = 0
-               THEN 'online'
-           ELSE 'offline' END,
+               THEN 'ONLINE'
+           ELSE 'OFFLINE' END,
        generate_series % 2 = 0,
        CASE
            WHEN generate_series % 3 = 0
-               THEN 'admin'
-           ELSE 'user' END
+               THEN 'ADMIN'
+           ELSE 'USER' END
 FROM generate_series(1, 30);
 
 -- Test data for "event" table

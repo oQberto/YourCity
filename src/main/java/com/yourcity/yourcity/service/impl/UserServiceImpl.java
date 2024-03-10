@@ -2,8 +2,8 @@ package com.yourcity.yourcity.service.impl;
 
 import com.yourcity.yourcity.dto.mapper.UserMapper;
 import com.yourcity.yourcity.dto.user.UserCreationDto;
-import com.yourcity.yourcity.dto.user.UserRepresentationDto;
 import com.yourcity.yourcity.dto.user.UserEditDto;
+import com.yourcity.yourcity.dto.user.UserRepresentationDto;
 import com.yourcity.yourcity.model.entity.User;
 import com.yourcity.yourcity.model.entity.enums.NetworkStatus;
 import com.yourcity.yourcity.model.entity.enums.Status;
@@ -16,6 +16,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -86,9 +87,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserRepresentationDto> getUsersByNetworkStatus(NetworkStatus networkStatus) {
+    public List<UserRepresentationDto> getUsersByNetworkStatus(NetworkStatus networkStatus, Pageable pageable) {
         return userRepository
-                .getAllByNetworkStatus(networkStatus)
+                .findAllByNetworkStatus(networkStatus, pageable)
                 .stream()
                 .map(userMapper::mapToUserRepresentationDto)
                 .toList();

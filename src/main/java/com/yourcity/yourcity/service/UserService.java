@@ -1,10 +1,10 @@
 package com.yourcity.yourcity.service;
 
 import com.yourcity.yourcity.dto.user.UserCreationDto;
-import com.yourcity.yourcity.dto.user.UserRepresentationDto;
 import com.yourcity.yourcity.dto.user.UserEditDto;
-import com.yourcity.yourcity.model.entity.User;
+import com.yourcity.yourcity.dto.user.UserRepresentationDto;
 import com.yourcity.yourcity.model.entity.enums.NetworkStatus;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,5 +20,5 @@ public interface UserService {
 
     Long deleteUser(Long id);
 
-    List<UserRepresentationDto> getUsersByNetworkStatus(NetworkStatus networkStatus);
+    List<UserRepresentationDto> getUsersByNetworkStatus(NetworkStatus networkStatus, Pageable pageable);
 }
