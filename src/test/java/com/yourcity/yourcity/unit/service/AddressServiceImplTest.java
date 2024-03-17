@@ -14,7 +14,12 @@ import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -146,5 +151,101 @@ public class AddressServiceImplTest {
 
         verify(addressRepository).findById(anyLong());
         verifyNoInteractions(addressMapper);
+    }
+
+    @Test
+    public void getAddressesByCountry_shouldReturnListOfAddresses() {
+        var countryName = "testName";
+        Page<Address> addressPage = new PageImpl<>(getAddresses(10));
+
+        when(addressRepository.findAllByCountryName(anyString(), any(Pageable.class))).thenReturn(addressPage);
+        mockAddressMapper(addressPage);
+
+        List<AddressDto> actualAddresses = addressService.getAddressesByCountry(
+                countryName, Pageable.unpaged()
+        );
+
+        assertThat(actualAddresses).hasSize(10);
+
+        verify(addressMapper, times(10)).mapToAddressDto(any(Address.class));
+    }
+
+    @Test
+    public void getAddressesByCity_shouldReturnListOfAddresses() {
+        var cityName = "testName";
+        Page<Address> addressPage = new PageImpl<>(getAddresses(10));
+
+        when(addressRepository.findAllByCityName(anyString(), any(Pageable.class))).thenReturn(addressPage);
+        mockAddressMapper(addressPage);
+
+        List<AddressDto> actualAddresses = addressService.getAddressesByCity(
+                cityName, Pageable.unpaged()
+        );
+
+        assertThat(actualAddresses).hasSize(10);
+
+        verify(addressMapper, times(10)).mapToAddressDto(any(Address.class));
+    }
+
+    @Test
+    public void getAddressesByStreet_shouldReturnListOfAddresses() {
+        var cityName = "testName";
+        Page<Address> addressPage = new PageImpl<>(getAddresses(10));
+
+        when(addressRepository.findAllByStreetName(anyString(), any(Pageable.class))).thenReturn(addressPage);
+        mockAddressMapper(addressPage);
+
+        List<AddressDto> actualAddresses = addressService.getAddressesByStreet(
+                cityName, Pageable.unpaged()
+        );
+
+        assertThat(actualAddresses).hasSize(10);
+
+        verify(addressMapper, times(10)).mapToAddressDto(any(Address.class));
+    }
+
+    @Test
+    public void deleteAddress_whenAddressExists_shouldDeleteAddress() {
+        var address = Address.builder()
+                .id(1L)
+                .build();
+        when(addressRepository.findById(anyLong())).thenReturn(Optional.of(address));
+
+        addressService.deleteAddress(1L);
+        InOrder inOrder = inOrder(addressRepository);
+
+        inOrder.verify(addressRepository).findById(anyLong());
+        inOrder.verify(addressRepository).delete(any(Address.class));
+    }
+
+    @Test
+    public void deleteAddress_whenAddressDoesNotExist_shouldNotInvokeDeleteMethod() {
+
+        when(addressRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        addressService.deleteAddress(Long.MIN_VALUE);
+
+        verify(addressRepository).findById(anyLong());
+        verify(addressRepository, times(0)).delete(any(Address.class));
+    }
+
+    private List<Address> getAddresses(int amount) {
+        List<Address> addresses = new ArrayList<>();
+
+        for (int i = 0; i < amount; i++) {
+            addresses.add(Address.builder()
+                    .id((long) i)
+                    .build());
+        }
+
+        return addresses;
+    }
+
+    private void mockAddressMapper(Page<Address> addresses) {
+        for (int i = 0; i < addresses.getSize(); i++) {
+            when(addressMapper.mapToAddressDto(any(Address.class))).thenReturn(
+                    AddressDto.builder().id((long) i).build()
+            );
+        }
     }
 }
