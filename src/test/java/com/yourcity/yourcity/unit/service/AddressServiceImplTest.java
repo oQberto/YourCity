@@ -2,22 +2,17 @@ package com.yourcity.yourcity.unit.service;
 
 import com.yourcity.yourcity.YourCityApplication;
 import com.yourcity.yourcity.dto.address.AddressDto;
-import com.yourcity.yourcity.dto.city.CityDto;
-import com.yourcity.yourcity.dto.country.CountryDto;
 import com.yourcity.yourcity.dto.mapper.AddressMapper;
-import com.yourcity.yourcity.dto.street.StreetDto;
 import com.yourcity.yourcity.model.entity.Address;
-import com.yourcity.yourcity.model.entity.City;
-import com.yourcity.yourcity.model.entity.Country;
-import com.yourcity.yourcity.model.entity.Street;
 import com.yourcity.yourcity.repository.AddressRepository;
+import com.yourcity.yourcity.service.exception.EntityUpdateException;
 import com.yourcity.yourcity.service.impl.AddressServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;
@@ -30,6 +25,8 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest(classes = YourCityApplication.class)
 public class AddressServiceImplTest {
+    private Address address;
+    private AddressDto addressDto;
 
     @Mock
     AddressRepository addressRepository;
@@ -40,34 +37,38 @@ public class AddressServiceImplTest {
     @InjectMocks
     AddressServiceImpl addressService;
 
-    @Test
-    public void getAddressById_whenIdExists_shouldReturnAddress() {
+    @BeforeEach
+    void setUp() {
         var id = 1L;
         var buildingNumber = (short) 101;
         var roomNumber = (short) 52;
-        var address = Address.builder()
+
+        address = Address.builder()
                 .id(id)
                 .buildingNumber(buildingNumber)
                 .roomNumber(roomNumber)
-                .country(Country.builder().build())
-                .city(City.builder().build())
-                .street(Street.builder().build())
                 .build();
-        var addressDto = AddressDto.builder()
+        addressDto = AddressDto.builder()
                 .id(id)
                 .buildingNumber(buildingNumber)
                 .roomNumber(roomNumber)
-                .countryDto(CountryDto.builder().build())
-                .cityDto(CityDto.builder().build())
-                .streetDto(StreetDto.builder().build())
                 .build();
+    }
+
+    @Test
+    public void getAddressById_whenIdExists_shouldReturnAddress() {
 
         when(addressRepository.findById(anyLong())).thenReturn(Optional.of(address));
         when(addressMapper.mapToAddressDto(address)).thenReturn(addressDto);
-        AddressDto actualResult = addressService.getAddressById(id);
+
+        AddressDto actualResult = addressService.getAddressById(address.getId());
+        InOrder inOrder = inOrder(addressRepository, addressMapper);
+
+        inOrder.verify(addressRepository).findById(anyLong());
+        inOrder.verify(addressMapper).mapToAddressDto(any(Address.class));
 
         assertThat(actualResult).isNotNull();
-        assertThat(actualResult.getId()).isEqualTo(id);
+        assertThat(actualResult.getId()).isEqualTo(address.getId());
     }
 
     @Test
@@ -87,30 +88,63 @@ public class AddressServiceImplTest {
 
     @Test
     public void createAddress_whenAddressDtoIsCorrect_shouldReturnCreatedAddressDto() {
-        var id = 1L;
-        var buildingNumber = (short) 101;
-        var roomNumber = (short) 52;
-        var address = Address.builder()
-                .id(id)
-                .buildingNumber(buildingNumber)
-                .roomNumber(roomNumber)
-                .build();
-        var addressDto = AddressDto.builder()
-                .id(id)
-                .buildingNumber(buildingNumber)
-                .roomNumber(roomNumber)
-                .build();
 
         when(addressMapper.mapToAddress(addressDto)).thenReturn(address);
         when(addressMapper.mapToAddressDto(address)).thenReturn(addressDto);
         when(addressRepository.saveAndFlush(address)).thenReturn(address);
 
-        addressService.createAddress(addressDto);
-
-        InOrder inOrder = Mockito.inOrder(addressMapper, addressRepository);
+        AddressDto actualAddress = addressService.createAddress(addressDto);
+        InOrder inOrder = inOrder(addressMapper, addressRepository);
 
         inOrder.verify(addressMapper).mapToAddress(any(AddressDto.class));
         inOrder.verify(addressRepository).saveAndFlush(any(Address.class));
         inOrder.verify(addressMapper).mapToAddressDto(any(Address.class));
+
+        assertThat(actualAddress).isNotNull();
+        assertThat(actualAddress.getId()).isEqualTo(address.getId());
+    }
+
+    @Test
+    public void updateAddress_whenUpdatedAddressIsCorrect_shouldSaveUpdatedAddress() {
+        var updatedAddress = Address.builder()
+                .id(1L)
+                .buildingNumber((short) 100)
+                .roomNumber((short) 52)
+                .build();
+        var updatedAddressDto = AddressDto.builder()
+                .id(1L)
+                .buildingNumber((short) 100)
+                .roomNumber((short) 52)
+                .build();
+
+        when(addressRepository.findById(anyLong())).thenReturn(Optional.of(address));
+        when(addressMapper.updateAddress(addressDto, address)).thenReturn(updatedAddress);
+        when(addressRepository.saveAndFlush(updatedAddress)).thenReturn(updatedAddress);
+        when(addressMapper.mapToAddressDto(updatedAddress)).thenReturn(updatedAddressDto);
+
+        AddressDto actualResult = addressService.updateAddress(addressDto);
+        InOrder inOrder = inOrder(addressRepository, addressMapper);
+
+        inOrder.verify(addressRepository).findById(anyLong());
+        inOrder.verify(addressMapper).updateAddress(any(AddressDto.class), any(Address.class));
+        inOrder.verify(addressRepository).saveAndFlush(any(Address.class));
+        inOrder.verify(addressMapper).mapToAddressDto(any(Address.class));
+
+        assertThat(actualResult).isNotNull();
+        assertThat(actualResult.getId()).isEqualTo(address.getId());
+        assertThat(actualResult.getBuildingNumber()).isEqualTo(updatedAddress.getBuildingNumber());
+    }
+
+    @Test
+    public void updateAddress_whenCouldNotFindExistedAddress_shouldThrowEntityUpdateException() {
+
+        when(addressRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> addressService.updateAddress(AddressDto.builder().id(Long.MIN_VALUE).build()))
+                .isInstanceOf(EntityUpdateException.class)
+                .hasMessageContaining(AddressServiceImpl.UPDATE_ADDRESS);
+
+        verify(addressRepository).findById(anyLong());
+        verifyNoInteractions(addressMapper);
     }
 }
