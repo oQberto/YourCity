@@ -53,7 +53,7 @@ public class CountryServiceImplTest {
     }
 
     @Test
-    public void createCity_whenPassedCorrectDto_shouldReturnCreatedCity() {
+    public void createCountry_whenPassedCorrectDto_shouldReturnCreatedCountry() {
 
         when(countryMapper.mapToCountry(countryDto)).thenReturn(country);
         when(countryRepository.saveAndFlush(country)).thenReturn(country);
@@ -71,7 +71,7 @@ public class CountryServiceImplTest {
     }
 
     @Test
-    public void createCity_whenSaveAndFlushReturnsEmpty_shouldThrowEntityCreationException() {
+    public void createCountry_whenSaveAndFlushReturnsEmpty_shouldThrowEntityCreationException() {
 
         when(countryMapper.mapToCountry(countryDto)).thenReturn(country);
         when(countryRepository.saveAndFlush(any(Country.class))).thenReturn(null);
@@ -86,7 +86,7 @@ public class CountryServiceImplTest {
     }
 
     @Test
-    public void getCityById_whenCityExists_shouldReturnCity() {
+    public void getCountryById_whenCountryExists_shouldReturnCountry() {
         var id = 1L;
 
         when(countryRepository.findById(id)).thenReturn(Optional.of(country));
@@ -103,7 +103,7 @@ public class CountryServiceImplTest {
     }
 
     @Test
-    public void getCityById_whenCityDoesNotExist_shouldThrowEntityNotFoundException() {
+    public void getCountryById_whenCountryDoesNotExist_shouldThrowEntityNotFoundException() {
 
         when(countryRepository.findById(Long.MIN_VALUE)).thenReturn(Optional.empty());
 
@@ -115,7 +115,36 @@ public class CountryServiceImplTest {
     }
 
     @Test
-    public void updateCity() {
+    public void getCountryByName_whenCountryExists_shouldReturnCountry() {
+        var name = "Country";
+
+        when(countryRepository.findCountryByName(name)).thenReturn(Optional.of(country));
+        when(countryMapper.mapToCountryDto(country)).thenReturn(countryDto);
+
+        CountryDto actualResult = countryService.getCountryByName(name);
+        InOrder inOrder = inOrder(countryRepository, countryMapper);
+
+        inOrder.verify(countryRepository).findCountryByName(anyString());
+        inOrder.verify(countryMapper).mapToCountryDto(any(Country.class));
+
+        assertThat(actualResult).isNotNull();
+        assertThat(actualResult.getId()).isEqualTo(country.getId());
+    }
+
+    @Test
+    public void getCountryByName_whenCountryDoesNotExist_shouldThrowEntityNotFoundException() {
+        var name = "";
+        when(countryRepository.findCountryByName(name)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> countryService.getCountryByName(name))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessageContaining(
+                        String.format(CountryServiceImpl.COUNTRY_NOT_FOUND_BY_NAME, name)
+                );
+    }
+
+    @Test
+    public void updateCountry() {
         var updatedCountryDto = CountryDto.builder()
                 .id(1L)
                 .name("newName")
@@ -145,7 +174,7 @@ public class CountryServiceImplTest {
     }
 
     @Test
-    public void deleteCity_whenCityExists_shouldInvokeDeleteMethod() {
+    public void deleteCountry_whenCountryExists_shouldInvokeDeleteMethod() {
 
         when(countryRepository.findById(anyLong())).thenReturn(Optional.of(country));
 
@@ -155,7 +184,7 @@ public class CountryServiceImplTest {
     }
 
     @Test
-    public void deleteCity_whenCityDoesNotExist_shouldNotInvokeDeleteMethod() {
+    public void deleteCountry_whenCountryDoesNotExist_shouldNotInvokeDeleteMethod() {
 
         when(countryRepository.findById(anyLong())).thenReturn(Optional.empty());
 
