@@ -128,6 +128,7 @@ public class CityServiceImplTest {
 
         when(cityRepository.findById(updatedCityDto.getId())).thenReturn(Optional.of(city));
         when(cityMapper.updateCity(updatedCityDto, city)).thenReturn(updatedCity);
+        when(cityRepository.saveAndFlush(updatedCity)).thenReturn(updatedCity);
         when(cityMapper.mapToCityDto(updatedCity)).thenReturn(updatedCityDto);
 
         CityDto actualResult = cityService.updateCity(updatedCityDto);
@@ -135,6 +136,7 @@ public class CityServiceImplTest {
 
         inOrder.verify(cityRepository).findById(anyLong());
         inOrder.verify(cityMapper).updateCity(updatedCityDto, city);
+        inOrder.verify(cityRepository).saveAndFlush(updatedCity);
         inOrder.verify(cityMapper).mapToCityDto(updatedCity);
 
         assertThat(actualResult).isNotNull();

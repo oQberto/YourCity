@@ -54,6 +54,7 @@ public class CityServiceImpl implements CityService {
         return cityRepository
                 .findById(dto.getId())
                 .map(user -> cityMapper.updateCity(dto, user))
+                .map(cityRepository::saveAndFlush)
                 .map(cityMapper::mapToCityDto)
                 .orElseThrow(() -> new EntityUpdateException(CITY_UPDATE));
     }
