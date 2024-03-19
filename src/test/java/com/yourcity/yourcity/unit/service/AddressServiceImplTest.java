@@ -1,6 +1,5 @@
 package com.yourcity.yourcity.unit.service;
 
-import com.yourcity.yourcity.YourCityApplication;
 import com.yourcity.yourcity.dto.address.AddressDto;
 import com.yourcity.yourcity.dto.mapper.AddressMapper;
 import com.yourcity.yourcity.model.entity.Address;
@@ -10,10 +9,11 @@ import com.yourcity.yourcity.service.impl.AddressServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +28,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest(classes = YourCityApplication.class)
+@ExtendWith(MockitoExtension.class)
 public class AddressServiceImplTest {
     private Address address;
     private AddressDto addressDto;
@@ -159,7 +159,7 @@ public class AddressServiceImplTest {
         Page<Address> addressPage = new PageImpl<>(getAddresses(10));
 
         when(addressRepository.findAllByCountryName(anyString(), any(Pageable.class))).thenReturn(addressPage);
-        mockAddressMapper(addressPage);
+        when(addressMapper.mapToAddressDto(any(Address.class))).thenReturn(AddressDto.builder().build());
 
         List<AddressDto> actualAddresses = addressService.getAddressesByCountry(
                 countryName, Pageable.unpaged()
@@ -176,7 +176,7 @@ public class AddressServiceImplTest {
         Page<Address> addressPage = new PageImpl<>(getAddresses(10));
 
         when(addressRepository.findAllByCityName(anyString(), any(Pageable.class))).thenReturn(addressPage);
-        mockAddressMapper(addressPage);
+        when(addressMapper.mapToAddressDto(any(Address.class))).thenReturn(AddressDto.builder().build());
 
         List<AddressDto> actualAddresses = addressService.getAddressesByCity(
                 cityName, Pageable.unpaged()
@@ -193,7 +193,7 @@ public class AddressServiceImplTest {
         Page<Address> addressPage = new PageImpl<>(getAddresses(10));
 
         when(addressRepository.findAllByStreetName(anyString(), any(Pageable.class))).thenReturn(addressPage);
-        mockAddressMapper(addressPage);
+        when(addressMapper.mapToAddressDto(any(Address.class))).thenReturn(AddressDto.builder().build());
 
         List<AddressDto> actualAddresses = addressService.getAddressesByStreet(
                 cityName, Pageable.unpaged()
@@ -239,13 +239,5 @@ public class AddressServiceImplTest {
         }
 
         return addresses;
-    }
-
-    private void mockAddressMapper(Page<Address> addresses) {
-        for (int i = 0; i < addresses.getSize(); i++) {
-            when(addressMapper.mapToAddressDto(any(Address.class))).thenReturn(
-                    AddressDto.builder().id((long) i).build()
-            );
-        }
     }
 }

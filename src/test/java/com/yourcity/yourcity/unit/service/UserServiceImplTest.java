@@ -1,6 +1,5 @@
 package com.yourcity.yourcity.unit.service;
 
-import com.yourcity.yourcity.YourCityApplication;
 import com.yourcity.yourcity.dto.mapper.UserMapper;
 import com.yourcity.yourcity.dto.user.UserCreationDto;
 import com.yourcity.yourcity.dto.user.UserEditDto;
@@ -16,10 +15,11 @@ import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -34,7 +34,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest(classes = YourCityApplication.class)
+@ExtendWith(MockitoExtension.class)
 public class UserServiceImplTest {
     private User user;
     private UserEditDto userEditDto;
@@ -145,11 +145,11 @@ public class UserServiceImplTest {
 
     @Test
     public void getUsersByNetworkStatus_whenUsersWithPassedNetworkStatusExist_shouldReturnListOfUsers() {
-        Page<User> streets = new PageImpl<>(getStreets(10));
+        Page<User> users = new PageImpl<>(getStreets(10));
         Pageable pageable = Pageable.unpaged();
 
-        when(userRepository.findAllByNetworkStatus(NetworkStatus.ONLINE, pageable)).thenReturn(streets);
-        mockStreetMapper(streets);
+        when(userRepository.findAllByNetworkStatus(NetworkStatus.ONLINE, pageable)).thenReturn(users);
+        when(userMapper.mapToUserRepresentationDto(any(User.class))).thenReturn(UserRepresentationDto.builder().build());
 
         List<UserRepresentationDto> actualResult = userService.getUsersByNetworkStatus(NetworkStatus.ONLINE, pageable);
 
@@ -211,13 +211,5 @@ public class UserServiceImplTest {
         }
 
         return places;
-    }
-
-    private void mockStreetMapper(Page<User> places) {
-        for (int i = 0; i < places.getSize(); i++) {
-            when(userMapper.mapToUserRepresentationDto(any(User.class))).thenReturn(
-                    UserRepresentationDto.builder().id((long) i).build()
-            );
-        }
     }
 }

@@ -1,6 +1,5 @@
 package com.yourcity.yourcity.unit.service;
 
-import com.yourcity.yourcity.YourCityApplication;
 import com.yourcity.yourcity.dto.mapper.PlaceMapper;
 import com.yourcity.yourcity.dto.place.PlaceDto;
 import com.yourcity.yourcity.model.entity.Place;
@@ -11,10 +10,11 @@ import com.yourcity.yourcity.service.impl.PlaceServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest(classes = YourCityApplication.class)
+@ExtendWith(MockitoExtension.class)
 public class PlaceServiceImplTest {
     private Place place;
     private PlaceDto placeDto;
@@ -156,7 +156,7 @@ public class PlaceServiceImplTest {
         Pageable pageable = Pageable.unpaged();
 
         when(placeRepository.findAllByCategory(PlaceCategory.CAFFE, pageable)).thenReturn(places);
-        mockPlaceMapper(places);
+        when(placeMapper.mapToPlaceDto(any(Place.class))).thenReturn(PlaceDto.builder().build());
 
         List<PlaceDto> actualResult = placeService.getPlacesByCategory(PlaceCategory.CAFFE, pageable);
 
@@ -226,13 +226,5 @@ public class PlaceServiceImplTest {
         }
 
         return places;
-    }
-
-    private void mockPlaceMapper(Page<Place> places) {
-        for (int i = 0; i < places.getSize(); i++) {
-            when(placeMapper.mapToPlaceDto(any(Place.class))).thenReturn(
-                    PlaceDto.builder().id((long) i).build()
-            );
-        }
     }
 }

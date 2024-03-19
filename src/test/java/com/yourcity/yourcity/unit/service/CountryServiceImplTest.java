@@ -1,6 +1,5 @@
 package com.yourcity.yourcity.unit.service;
 
-import com.yourcity.yourcity.YourCityApplication;
 import com.yourcity.yourcity.dto.country.CountryDto;
 import com.yourcity.yourcity.dto.mapper.CountryMapper;
 import com.yourcity.yourcity.model.entity.Country;
@@ -10,10 +9,11 @@ import com.yourcity.yourcity.service.impl.CountryServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
@@ -23,7 +23,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest(classes = YourCityApplication.class)
+@ExtendWith(MockitoExtension.class)
 public class CountryServiceImplTest {
     private Country country;
     private CountryDto countryDto;

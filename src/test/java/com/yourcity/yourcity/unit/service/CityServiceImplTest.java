@@ -1,6 +1,5 @@
 package com.yourcity.yourcity.unit.service;
 
-import com.yourcity.yourcity.YourCityApplication;
 import com.yourcity.yourcity.dto.city.CityDto;
 import com.yourcity.yourcity.dto.mapper.CityMapper;
 import com.yourcity.yourcity.model.entity.City;
@@ -10,10 +9,11 @@ import com.yourcity.yourcity.service.impl.CityServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest(classes = YourCityApplication.class)
+@ExtendWith(MockitoExtension.class)
 public class CityServiceImplTest {
     private City city;
     private CityDto cityDto;

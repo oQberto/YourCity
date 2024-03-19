@@ -1,6 +1,5 @@
 package com.yourcity.yourcity.unit.service;
 
-import com.yourcity.yourcity.YourCityApplication;
 import com.yourcity.yourcity.dto.mapper.StreetMapper;
 import com.yourcity.yourcity.dto.street.StreetDto;
 import com.yourcity.yourcity.model.entity.Street;
@@ -11,10 +10,11 @@ import com.yourcity.yourcity.service.impl.StreetServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest(classes = YourCityApplication.class)
+@ExtendWith(MockitoExtension.class)
 public class StreetServiceImplTest {
     private Street street;
     private StreetDto streetDto;
@@ -154,7 +154,7 @@ public class StreetServiceImplTest {
         Pageable pageable = Pageable.unpaged();
 
         when(streetRepository.findAllByType(Type.BOULEVARD, pageable)).thenReturn(streets);
-        mockStreetMapper(streets);
+        when(streetMapper.mapToStreetDto(any(Street.class))).thenReturn(StreetDto.builder().build());
 
         List<StreetDto> actualResult = streetService.getStreetsByType(Type.BOULEVARD, pageable);
 
@@ -224,13 +224,5 @@ public class StreetServiceImplTest {
         }
 
         return places;
-    }
-
-    private void mockStreetMapper(Page<Street> places) {
-        for (int i = 0; i < places.getSize(); i++) {
-            when(streetMapper.mapToStreetDto(any(Street.class))).thenReturn(
-                    StreetDto.builder().id((long) i).build()
-            );
-        }
     }
 }
