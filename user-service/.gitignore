@@ -35,7 +35,3 @@ out/
 
 ### VS Code ###
 .vscode/
-/address-service/src/main/resources/secrets.yml
-/event-service/src/main/resources/secrets.yml
-/user-service/src/main/resources/secrets.yml
-/chat-service/src/main/resources/secrets.yml

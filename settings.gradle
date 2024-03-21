@@ -1,8 +1,10 @@
 rootProject.name = 'YourCity'
 
 include 'ui-app'
-include 'your-city-service'
-include 'address-service'
-include 'core'
 include 'domain'
+include 'chat-service'
+include 'user-service'
+include 'event-service'
+include 'address-service'
+include 'your-city-service'
 
