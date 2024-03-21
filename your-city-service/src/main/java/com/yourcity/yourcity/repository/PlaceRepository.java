@@ -1,7 +1,7 @@
 package com.yourcity.yourcity.repository;
 
-import com.yourcity.yourcity.model.entity.Place;
-import com.yourcity.yourcity.model.entity.enums.PlaceCategory;
+import com.yourcity.domain.entity.Place;
+import com.yourcity.domain.enums.PlaceCategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

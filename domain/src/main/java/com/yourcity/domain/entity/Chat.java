@@ -1,26 +1,33 @@
-package com.yourcity.yourcity.model.entity;
+package com.yourcity.domain.entity;
 
-import com.yourcity.yourcity.model.entity.enums.ChatStatus;
+import com.yourcity.domain.enums.ChatStatus;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static jakarta.persistence.EnumType.STRING;
+import static jakarta.persistence.GenerationType.IDENTITY;
+import static lombok.AccessLevel.PRIVATE;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = PRIVATE)
 @Entity
 public class Chat {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     Long id;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(STRING)
     ChatStatus status;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

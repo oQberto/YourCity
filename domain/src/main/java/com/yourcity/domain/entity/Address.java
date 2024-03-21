@@ -1,4 +1,4 @@
-package com.yourcity.yourcity.model.entity;
+package com.yourcity.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

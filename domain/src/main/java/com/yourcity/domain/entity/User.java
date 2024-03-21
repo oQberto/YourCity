@@ -1,40 +1,48 @@
-package com.yourcity.yourcity.model.entity;
+package com.yourcity.domain.entity;
 
-import com.yourcity.yourcity.model.entity.enums.NetworkStatus;
-import com.yourcity.yourcity.model.entity.enums.Role;
-import com.yourcity.yourcity.model.entity.enums.Status;
+import com.yourcity.domain.enums.NetworkStatus;
+import com.yourcity.domain.enums.Role;
+import com.yourcity.domain.enums.Status;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static jakarta.persistence.CascadeType.ALL;
+import static jakarta.persistence.EnumType.STRING;
+import static jakarta.persistence.GenerationType.IDENTITY;
+import static lombok.AccessLevel.PRIVATE;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = PRIVATE)
 @Entity
 @Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     Long id;
 
     String username;
     String email;
     String password;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(STRING)
     Status status;
 
     @Column(name = "network_status")
-    @Enumerated(EnumType.STRING)
+    @Enumerated(STRING)
     NetworkStatus networkStatus;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(STRING)
     Role role;
 
     @Column(name = "is_verified")
@@ -45,7 +53,7 @@ public class User {
     List<Event> ownedEvents = new ArrayList<>();
 
     @Builder.Default
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = ALL)
             @JoinTable(
                     name = "user_event",
                     joinColumns = @JoinColumn(name = "user_id"),
@@ -54,7 +62,7 @@ public class User {
     List<Event> events = new ArrayList<>();
 
     @Builder.Default
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = ALL)
     @JoinTable(
             name = "user_chat",
             joinColumns = @JoinColumn(name = "user_id"),

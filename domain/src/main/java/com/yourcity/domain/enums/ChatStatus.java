@@ -1,4 +1,4 @@
-package com.yourcity.yourcity.model.entity.enums;
+package com.yourcity.domain.enums;
 
 public enum ChatStatus {
     ACTIVE,

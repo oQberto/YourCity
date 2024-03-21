@@ -1,6 +1,6 @@
-package com.yourcity.yourcity.model.entity;
+package com.yourcity.domain.entity;
 
-import com.yourcity.yourcity.model.entity.enums.MessageStatus;
+import com.yourcity.domain.enums.MessageStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;

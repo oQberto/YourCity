@@ -1,6 +1,6 @@
 package com.yourcity.yourcity.repository;
 
-import com.yourcity.yourcity.model.entity.Address;
+import com.yourcity.domain.entity.Address;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

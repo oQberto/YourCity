@@ -1,7 +1,7 @@
 package com.yourcity.yourcity.repository;
 
-import com.yourcity.yourcity.model.entity.Street;
-import com.yourcity.yourcity.model.entity.enums.Type;
+import com.yourcity.domain.entity.Street;
+import com.yourcity.domain.enums.Type;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
