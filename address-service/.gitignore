@@ -35,4 +35,3 @@ out/
 
 ### VS Code ###
 .vscode/
-/address-service/src/main/resources/secrets.yml
