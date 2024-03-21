@@ -1,1 +1,6 @@
 rootProject.name = 'YourCity'
+
+include 'ui-app'
+include 'your-city-service'
+include 'core'
+
