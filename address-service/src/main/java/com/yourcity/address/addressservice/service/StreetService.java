@@ -1,7 +1,7 @@
 package com.yourcity.address.addressservice.service;
 
 import com.yourcity.address.addressservice.model.dto.street.StreetDto;
-import com.yourcity.domain.enums.Type;
+import com.yourcity.domain.domain.model.enums.Type;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 

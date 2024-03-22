@@ -1,7 +1,7 @@
 package com.yourcity.event.eventservice.model.dto.place;
 
 import com.yourcity.address.addressservice.model.dto.address.AddressDto;
-import com.yourcity.domain.enums.PlaceCategory;
+import com.yourcity.domain.domain.model.enums.PlaceCategory;
 import lombok.Builder;
 import lombok.Value;
 import lombok.experimental.FieldNameConstants;

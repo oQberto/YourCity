@@ -1,6 +1,6 @@
 package com.yourcity.event.eventservice.service;
 
-import com.yourcity.domain.enums.PlaceCategory;
+import com.yourcity.domain.domain.model.enums.PlaceCategory;
 import com.yourcity.event.eventservice.model.dto.place.PlaceDto;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

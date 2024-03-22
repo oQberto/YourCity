@@ -1,7 +1,7 @@
 package com.yourcity.address.addressservice.model.mapper;
 
 import com.yourcity.address.addressservice.model.dto.country.CountryDto;
-import com.yourcity.domain.entity.Country;
+import com.yourcity.domain.domain.model.entity.Country;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

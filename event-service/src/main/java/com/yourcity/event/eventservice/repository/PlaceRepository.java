@@ -1,7 +1,7 @@
 package com.yourcity.event.eventservice.repository;
 
-import com.yourcity.domain.entity.Place;
-import com.yourcity.domain.enums.PlaceCategory;
+import com.yourcity.domain.domain.model.entity.Place;
+import com.yourcity.domain.domain.model.enums.PlaceCategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

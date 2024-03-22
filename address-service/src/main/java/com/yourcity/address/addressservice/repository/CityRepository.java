@@ -1,6 +1,6 @@
 package com.yourcity.address.addressservice.repository;
 
-import com.yourcity.domain.entity.City;
+import com.yourcity.domain.domain.model.entity.City;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -2,7 +2,7 @@ package com.yourcity.address.addressservice.controller;
 
 import com.yourcity.address.addressservice.model.dto.street.StreetDto;
 import com.yourcity.address.addressservice.service.StreetService;
-import com.yourcity.domain.enums.Type;
+import com.yourcity.domain.domain.model.enums.Type;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Pageable;

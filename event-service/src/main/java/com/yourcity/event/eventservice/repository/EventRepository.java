@@ -1,6 +1,6 @@
 package com.yourcity.event.eventservice.repository;
 
-import com.yourcity.domain.entity.Event;
+import com.yourcity.domain.domain.model.entity.Event;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,8 +1,8 @@
 package com.yourcity.user.userservice.model.dto;
 
-import com.yourcity.yourcity.model.entity.enums.NetworkStatus;
-import com.yourcity.yourcity.model.entity.enums.Role;
-import com.yourcity.yourcity.model.entity.enums.Status;
+import com.yourcity.domain.domain.model.enums.NetworkStatus;
+import com.yourcity.domain.domain.model.enums.Role;
+import com.yourcity.domain.domain.model.enums.Status;
 import lombok.Builder;
 import lombok.Value;
 

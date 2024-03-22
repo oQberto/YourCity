@@ -1,6 +1,6 @@
 package com.yourcity.event.eventservice.controller;
 
-import com.yourcity.domain.enums.PlaceCategory;
+import com.yourcity.domain.domain.model.enums.PlaceCategory;
 import com.yourcity.event.eventservice.model.dto.place.PlaceDto;
 import com.yourcity.event.eventservice.service.PlaceService;
 import lombok.AllArgsConstructor;

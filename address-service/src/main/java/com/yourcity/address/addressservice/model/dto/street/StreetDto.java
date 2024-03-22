@@ -1,6 +1,6 @@
 package com.yourcity.address.addressservice.model.dto.street;
 
-import com.yourcity.domain.enums.Type;
+import com.yourcity.domain.domain.model.enums.Type;
 import lombok.Builder;
 import lombok.Value;
 

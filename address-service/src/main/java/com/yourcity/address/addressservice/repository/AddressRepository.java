@@ -1,6 +1,6 @@
 package com.yourcity.address.addressservice.repository;
 
-import com.yourcity.domain.entity.Address;
+import com.yourcity.domain.domain.model.entity.Address;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

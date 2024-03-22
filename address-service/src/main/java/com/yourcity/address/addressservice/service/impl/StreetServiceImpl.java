@@ -6,7 +6,7 @@ import com.yourcity.address.addressservice.repository.StreetRepository;
 import com.yourcity.address.addressservice.service.StreetService;
 import com.yourcity.address.addressservice.service.exception.EntityCreationException;
 import com.yourcity.address.addressservice.service.exception.EntityUpdateException;
-import com.yourcity.domain.enums.Type;
+import com.yourcity.domain.domain.model.enums.Type;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

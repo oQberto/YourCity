@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: user-service
+  config:
+    import: optional:secrets.yml
+  datasource:
+    url: jdbc:postgresql://localhost:5432/your_city
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        hbm2ddl:
+          auto: validate
+server:
+  port: 8085

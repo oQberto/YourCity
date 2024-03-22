@@ -1,7 +1,7 @@
 package com.yourcity.address.addressservice.model.mapper;
 
 import com.yourcity.address.addressservice.model.dto.address.AddressDto;
-import com.yourcity.domain.entity.Address;
+import com.yourcity.domain.domain.model.entity.Address;
 import org.mapstruct.*;
 
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;

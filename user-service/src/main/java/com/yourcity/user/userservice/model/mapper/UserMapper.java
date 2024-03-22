@@ -1,13 +1,14 @@
 package com.yourcity.user.userservice.model.mapper;
 
-import com.yourcity.domain.entity.User;
-import com.yourcity.domain.enums.NetworkStatus;
-import com.yourcity.domain.enums.Role;
-import com.yourcity.domain.enums.Status;
+import com.yourcity.domain.domain.model.entity.User;
+import com.yourcity.domain.domain.model.enums.NetworkStatus;
+import com.yourcity.domain.domain.model.enums.Role;
+import com.yourcity.domain.domain.model.enums.Status;
 import com.yourcity.user.userservice.model.dto.UserCreationDto;
 import com.yourcity.user.userservice.model.dto.UserEditDto;
 import com.yourcity.user.userservice.model.dto.UserRepresentationDto;
 import org.mapstruct.*;
+import org.springframework.stereotype.Component;
 
 import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
 
@@ -19,6 +20,7 @@ import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
                 NetworkStatus.class
         }
 )
+@Component
 public interface UserMapper {
 
     UserRepresentationDto mapToUserRepresentationDto(User user);

@@ -11,7 +11,7 @@ public class ClientConfiguration {
     @Bean
     public UserRestClientImpl userClient() {
         return new UserRestClientImpl(RestClient.builder()
-                .baseUrl("http://localhost:8080")
+                .baseUrl("http://localhost:8083")
                 .build());
     }
 }

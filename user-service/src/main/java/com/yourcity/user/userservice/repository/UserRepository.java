@@ -1,7 +1,7 @@
 package com.yourcity.user.userservice.repository;
 
-import com.yourcity.domain.entity.User;
-import com.yourcity.domain.enums.NetworkStatus;
+import com.yourcity.domain.domain.model.entity.User;
+import com.yourcity.domain.domain.model.enums.NetworkStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,8 +1,8 @@
 package com.yourcity.user.userservice.service.impl;
 
-import com.yourcity.domain.entity.User;
-import com.yourcity.domain.enums.NetworkStatus;
-import com.yourcity.domain.enums.Status;
+import com.yourcity.domain.domain.model.entity.User;
+import com.yourcity.domain.domain.model.enums.NetworkStatus;
+import com.yourcity.domain.domain.model.enums.Status;
 import com.yourcity.user.userservice.model.dto.UserCreationDto;
 import com.yourcity.user.userservice.model.dto.UserEditDto;
 import com.yourcity.user.userservice.model.dto.UserRepresentationDto;

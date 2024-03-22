@@ -1,12 +1,12 @@
 package com.yourcity.event.eventservice.service.impl;
 
-import com.yourcity.domain.enums.PlaceCategory;
+import com.yourcity.address.addressservice.service.exception.EntityCreationException;
+import com.yourcity.address.addressservice.service.exception.EntityUpdateException;
+import com.yourcity.domain.domain.model.enums.PlaceCategory;
 import com.yourcity.event.eventservice.model.dto.place.PlaceDto;
 import com.yourcity.event.eventservice.model.mapper.PlaceMapper;
 import com.yourcity.event.eventservice.repository.PlaceRepository;
 import com.yourcity.event.eventservice.service.PlaceService;
-import com.yourcity.user.userservice.service.exception.EntityCreationException;
-import com.yourcity.user.userservice.service.exception.EntityUpdateException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

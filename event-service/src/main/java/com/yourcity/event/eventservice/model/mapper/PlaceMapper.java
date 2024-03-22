@@ -1,7 +1,7 @@
 package com.yourcity.event.eventservice.model.mapper;
 
 import com.yourcity.address.addressservice.model.mapper.AddressMapper;
-import com.yourcity.domain.entity.Place;
+import com.yourcity.domain.domain.model.entity.Place;
 import com.yourcity.event.eventservice.model.dto.place.PlaceDto;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
