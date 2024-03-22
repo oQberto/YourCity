@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: domain
+  config:
+    import: optional:secrets.yml
+  datasource:
+    url: jdbc:postgresql://localhost:5432/your_city
+server:
+  port: 8083
