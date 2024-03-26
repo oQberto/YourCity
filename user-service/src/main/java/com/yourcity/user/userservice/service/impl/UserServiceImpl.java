@@ -95,6 +95,15 @@ public class UserServiceImpl implements UserService {
                 .toList();
     }
 
+    @Override
+    public List<UserRepresentationDto> getAllUsers(Pageable pageable) {
+        return userRepository
+                .findAll(pageable)
+                .stream()
+                .map(userMapper::mapToUserRepresentationDto)
+                .toList();
+    }
+
     private void isUserExists(Long id) {
         if (!userRepository.existsById(id)) {
             throw new EntityNotFoundException(

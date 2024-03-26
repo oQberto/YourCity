@@ -30,7 +30,8 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 public class UserController {
     public static final String GET_USER_BY_ID = "/api/v1/users/{userId}";
     public static final String GET_USERS_BY_NETWORK_STATUS = "/api/v1/users/status/{networkStatus}";
-    public static final String CREATE_USER = "/api/v1/users";
+    public static final String GET_ALL_USERS = "/api/v1/users";
+    public static final String CREATE_USER = "/api/v1/users/user/create";
     public static final String UPDATE_USER = "/api/v1/users/user/update";
     public static final String DELETE_USER = "/api/v1/users/{userId}";
 
@@ -50,6 +51,13 @@ public class UserController {
                                                                                Pageable pageable) {
         return ResponseEntity.ok(
                 userService.getUsersByNetworkStatus(networkStatus, pageable)
+        );
+    }
+
+    @GetMapping(GET_ALL_USERS)
+    public ResponseEntity<List<UserRepresentationDto>> getAllUsers(Pageable pageable) {
+        return ResponseEntity.ok(
+                userService.getAllUsers(pageable)
         );
     }
 

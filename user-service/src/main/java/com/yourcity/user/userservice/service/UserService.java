@@ -21,4 +21,6 @@ public interface UserService {
     Long deleteUser(Long id);
 
     List<UserRepresentationDto> getUsersByNetworkStatus(NetworkStatus networkStatus, Pageable pageable);
+
+    List<UserRepresentationDto> getAllUsers(Pageable pageable);
 }
